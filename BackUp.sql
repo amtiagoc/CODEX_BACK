@@ -132,4 +132,3 @@ insert into Ciudad(nombre, id_departamento) VALUES ('Pereira', 10);
 insert into Ciudad(nombre, id_departamento) VALUES ('Santa Rosa de osos', 10);
 insert into Ciudad(nombre, id_departamento) VALUES ('Armenia', 11);
 insert into Ciudad(nombre, id_departamento) VALUES ('Valledupar', 12);
-
