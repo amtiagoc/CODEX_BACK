@@ -55,9 +55,11 @@ const getEntrada = async (req, res) => {
 };
 
 const createEntrada = async (req, res) => {
+    var date = new Date();
+    let fecha=(date.getDate() + "/" + (date.getMonth() +1) + "/" + date.getFullYear());
     try {
         let entrada = req.body;
-        let sql = `INSERT INTO public.entrada (peso, estatura, fecha, motivoconsulta, descripcion, id_remision, id_historiaclinica) VALUES('${entrada.peso}', '${entrada.estatura}', '${entrada.fceha}', '${entrada.motivoconsulta}', '${entrada.descripcion}', '${entrada.id_remision}', '${entrada.id_historiaclinica}');`
+        let sql = `INSERT INTO public.entrada (peso, estatura, fecha, motivoconsulta, descripcion) VALUES('${entrada.peso}', '${entrada.estatura}', '${fecha}', '${entrada.motivoconsulta}', '${entrada.descripcion}');`
         let result = await _pg.executeSql(sql);
         console.log(result)
         return res.send({

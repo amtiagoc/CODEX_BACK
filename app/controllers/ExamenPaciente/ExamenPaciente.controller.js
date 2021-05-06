@@ -1,16 +1,16 @@
 const PostgresService = require('../../services/postgres.service');
 const _pg = new PostgresService();
-const _examenpacienteController = require("../controllers/ExamenPaciente/ExamenPaciente.controller");
 
 
 /**
- * Método de consultar todas los examenes de un paciente
+ * Método de consultar todos los examenes de un paciente
  * @param {Request} req
  * @param {Response} res
  * @returns
  */
-const getExamenes = async (req, res) => {
-    let sql = `SELECT id_examen, nombre, id_arealaboratorio FROM public.examen`;
+const getExamenesPaciente = async (req, res) => {
+    let id = req.params.id;
+    let sql = `SELECT id_examen,id_paciente FROM public.examenpaciente WHERE id_paciente = ${id}`;
     try {
         let result = await _pg.executeSql(sql);
         let rows = result.rows;
@@ -23,7 +23,7 @@ const getExamenes = async (req, res) => {
     } catch (error) {
         return res.send({
             ok: false,
-            message: "Ha ocurrido un error consultando las Examenes del paciente",
+            message: "Ha ocurrido un error consultando los Examenes del paciente",
             content: error,
         });
     }
@@ -35,10 +35,10 @@ const getExamenes = async (req, res) => {
  * @param {Response} res
  * @returns
  */
-const getExamen = async (req, res) => {
+const getExamenPaciente = async (req, res) => {
     try {
         let id = req.params.id;
-        let sql = `SELECT * FROM public.examen WHERE id_examen = ${id}`;
+        let sql = `SELECT * FROM public.examenpaciente WHERE id_examenpaciente = ${id}`;
         let result = await _pg.executeSql(sql);
         let rows = result.rows;
         return res.send({
@@ -55,21 +55,16 @@ const getExamen = async (req, res) => {
     }
 };
 
-const createExamen = async (req, res) => {
+const createExamenPaciente = async (req, res) => {
     try {
-        let examen = req.body;
-        let sql = `INSERT INTO public.examen
-        (nombre, id_arealaboratorio)
-        VALUES('${examen.nombre}', '${examen.id_arealaboratorio}')`;
+        let examenpaciente = req.body;
+        let sql = `INSERT INTO public.examenpaciente (id_examen, id_paciente, id_medicoauxiliar, id_entrada, resultado, fecha) VALUES('${examenpaciente.id_examen}', '${examenpaciente.id_paciente}', '${examenpaciente.medicoauxiliar}', '${examenpaciente.id_entrada}', '${examenpaciente.resultado}', '${examenpaciente.fecha}')`;
         let result = await _pg.executeSql(sql);
         console.log(result)
-        if(result.rowCount==1){
-            // NO SE COMO LLAMAR EL METODO
-        }
         return res.send({
             ok: result.rowCount == 1,
             message: result.rowCount == 1 ? "Examen creado" : "El examen no fue creado",
-            content: examen,
+            content: examenpaciente,
         });
 
     } catch (error) {
@@ -82,4 +77,4 @@ const createExamen = async (req, res) => {
     }
 };
 
-module.exports = { getExamenes, getExamen, createExamen};
+module.exports = { getExamenesPaciente, getExamenPaciente, createExamenPaciente};
