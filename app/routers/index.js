@@ -25,10 +25,12 @@ router
   router
     .get('/entradas', _entradasController.getEntradas)
     .get('/entrada', _entradasController.getEntrada)
-    .post('/entradas', _entradasController.createEntrada);
-
+    .post('/entradas', _entradasController.createEntrada)
 
   //CRUD EXAMENES
+  .get('/examenes', _examenesController.getExamenes)
+  .get('/examen', _examenesController.getExamen)
+  .post('/examenes', _examenesController.createExamen);
 
 module.exports = router;    
 

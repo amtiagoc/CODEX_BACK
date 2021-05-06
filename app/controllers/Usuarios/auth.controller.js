@@ -3,7 +3,7 @@ const PostgresService = require("../../services/postgres.service");
 const _pg = new PostgresService();
 
 /**
- *
+ * Método para obtener el usuario que se esta logueando
  * @param {Request} req
  * @param {Response} res
  * @returns
@@ -34,7 +34,7 @@ const getUserLogin = async (req, res) => {
 };
 
 /**
- *
+ * Metodo para verificar el token
  * @param {Request} req
  * @param {Response} res
  * @returns
@@ -57,6 +57,12 @@ const verifyToken = (req, res) => {
   }
 };
 
+/**
+ * Metodo para verificar el Middleware
+ * @param {Request} req
+ * @param {Response} res
+ * @returns
+ */
 const verifyTokenMiddleware = (req, res, next) => {
   try {
     let token = req.headers.token;
