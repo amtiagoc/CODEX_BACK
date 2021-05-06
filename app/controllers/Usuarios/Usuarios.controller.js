@@ -28,17 +28,23 @@ const getUsuario = async (req, res) => {
 };
 
 //Crear un usuario
-//////////////////// NO ESTA LISTO //////////
 const createUsuario = async (req, res) => {
     try {
         let usuario = req.body;
-        let sql = `insert into usuario (cedula_usuario, nombres, apellidos, fechanacimiento, correo, telefono, direccion) values(${estudiante.id}, '${estudiante.name}', '${estudiante.email}')`;
+        let sql = `insert into usuario (cedula_usuario, nombres, apellidos, fechanacimiento, correo, telefono, direccion, 
+            ocupacion, id_especialidad, id_sexo, id_estadocivil, id_ciudad, id_rol) values('${usuario.cedula_usuario}', '${usuario.nombres}', 
+            '${usuario.apellidos}', '${usuario.fechanacimiento}', '${usuario.correo}', '${usuario.telefono}', '${usuario.direccion}', '${usuario.ocupacion}',
+            ${usuario.id_especialidad}, ${usuario.id_sexo}, ${usuario.id_estadocivil}, ${usuario.id_ciudad}, ${usuario.id_rol})`;
         let result = await _pg.executeSql(sql);
+        console.log(result.rows);
         return res.send({ ok: result.rowCount == 1, message: result == 1 ? "El usuario no fue creado" : "Usuario creado", content: estudiante, });
     } catch (error) {
         return res.send({ ok: false, message: "Error creado el usuario", content: error, });
     }
+};
 
+const updateUsuario = async (req, res) => {
+    
 };
 
 module.exports = { getUsuarios, getUsuario, createUsuario};
