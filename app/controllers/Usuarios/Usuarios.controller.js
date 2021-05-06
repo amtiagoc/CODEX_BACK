@@ -49,8 +49,8 @@ const updateUsuario = async (req, res) => {
 };
 
 //Eliminar Usuario
-const DeleteUsuario = async (req, res) => {
+const deleteUsuario = async (req, res) => {
 
 };
 
-module.exports = { getUsuarios, getUsuario, createUsuario};
+module.exports = { getUsuarios, getUsuario, createUsuario, updateUsuario, deleteUsuario};

@@ -4,6 +4,9 @@ const _usuariosController = require('../controllers/Usuarios/Usuarios.controller
 const _entradasController = require("../controllers/Entradas/Entradas.Controller");
 const _examenesController = require("../controllers/Examenes/Examenes.controller");
 const _authController = require("../controllers/Usuarios/auth.controller");
+const _medicamentosController = require('../controllers/Medicamentos/Medicamentos.controllers');
+const _especialidadesController = require('../controllers/Especialidades/Especialidades.controller');
+
 
 
 // RUTAS PUBLICAS
@@ -16,33 +19,41 @@ router.use([_authController.verifyTokenMiddleware]);
 router
   // Descrifrar y verificar token
   .get("/verify", _authController.verifyToken)
+
   //CRUD USUARIOS
   .get('/usuarios', _usuariosController.getUsuarios)
   .get('/usuario', _usuariosController.getUsuario)
-  .post('/', _usuariosController.createUsuario);
+  .post('/usuarios', _usuariosController.createUsuario)
+  .put('/usuario', _usuariosController.updateUsuario)
+  .delete('/usuario', _usuariosController.deleteUsuario);
 
-  //CRUD ENTRADAS
-  router
-    .get('/entradas', _entradasController.getEntradas)
-    .get('/entrada', _entradasController.getEntrada)
-    .post('/entradas', _entradasController.createEntrada)
+//CRUD ENTRADAS
+router
+  .get('/entradas', _entradasController.getEntradas)
+  .get('/entrada', _entradasController.getEntrada)
+  .post('/entradas', _entradasController.createEntrada);
 
-  //CRUD EXAMENES
+//CRUD EXAMENES
+router
   .get('/examenes', _examenesController.getExamenes)
   .get('/examen', _examenesController.getExamen)
   .post('/examenes', _examenesController.createExamen);
 
-module.exports = router;    
+router
+  //CRUD MEDICAMENTOS
+  .get('/medicamentos', _medicamentosController.getMedicamentos)
+  .get('/medicamento', _medicamentosController.getMedicamento)
+  .post('/medicamentos', _medicamentosController.createMedicamento)
+  .put('/medicamento', _medicamentosController.updateMedicamento)
+  .delete('/medicamento', _medicamentosController.deleteMedicamento);
 
+//CRUD ESPECIALIDADES
+router
+  .get('/especialidades', _especialidadesController.getEspecialidades)
+  .get('/especialidad', _especialidadesController.getEspecialidad)
+  .post('/especialidades', _especialidadesController.createEspecialidad)
+  .put('/medicamento', _especialidadesController.updateEspecialidad)
+  .delete('/medicamento', _especialidadesController.deleteEspecialidad);
 
-
-
-
-
-
-
-
-
-
-  //CRUD ENTRADAS
+module.exports = router;
 
