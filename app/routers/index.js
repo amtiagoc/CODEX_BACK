@@ -22,6 +22,10 @@ router
   .post('/', _usuariosController.createUsuario);
 
   //CRUD ENTRADAS
+  router
+    .get('/entradas', _entradasController.getEntradas)
+    .get('/entrada', _entradasController.getEntrada)
+    .post('/entradas', _entradasController.createEntrada);
 
 
   //CRUD EXAMENES
