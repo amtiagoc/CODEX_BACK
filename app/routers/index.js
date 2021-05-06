@@ -14,7 +14,7 @@ const _especialidadesController = require('../controllers/Especialidades/Especia
 router.post("/login", _authController.getUserLogin);
 
 //REGISTRO DEL MIDDLEWARE
-router.use([_authController.verifyTokenMiddleware]);
+//router.use([_authController.verifyTokenMiddleware]);
 // RUTAS PRIVADAS
 router
   // Descrifrar y verificar token
