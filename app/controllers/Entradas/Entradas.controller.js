@@ -1,6 +1,7 @@
 const PostgresService = require('../../services/postgres.service');
 const _pg = new PostgresService();
 
+
 /**
  * Método de consultar todas las entradas de la historia clinica de un paciente
  * @param {Request} req
@@ -8,8 +9,8 @@ const _pg = new PostgresService();
  * @returns
  */
 const getEntradas = async (req, res) => {
-    let sql = "SELECT id_historiaclinica, id_entrada, fecha, motivoconsulta FROM public.entrada";
-    //WHERE id='" + id + "'";
+    let id = req.params.id;
+    let sql = "SELECT id_historiaclinica, id_entrada, fecha, motivoconsulta FROM public.entrada WHERE id_historiaclinica='" + id + "'";
     try {
         let result = await _pg.executeSql(sql);
         let rows = result.rows;
@@ -59,6 +60,7 @@ const createEntrada = async (req, res) => {
     let fecha=(date.getDate() + "/" + (date.getMonth() +1) + "/" + date.getFullYear());
     try {
         let entrada = req.body;
+        //Editar campos del insert
         let sql = `INSERT INTO public.entrada (peso, estatura, fecha, motivoconsulta, descripcion) VALUES('${entrada.peso}', '${entrada.estatura}', '${fecha}', '${entrada.motivoconsulta}', '${entrada.descripcion}');`
         let result = await _pg.executeSql(sql);
         console.log(result)

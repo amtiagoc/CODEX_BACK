@@ -6,6 +6,8 @@ const _examenesController = require("../controllers/Examenes/Examenes.controller
 const _authController = require("../controllers/Usuarios/auth.controller");
 const _medicamentosController = require('../controllers/Medicamentos/Medicamentos.controllers');
 const _especialidadesController = require('../controllers/Especialidades/Especialidades.controller');
+const _entradaposologiaController = require("../controllers/Entradas/EntradaPosologia.Controller");
+const _remisionController = require("../controllers/Entradas/Remision.Controller");
 
 
 
@@ -54,6 +56,18 @@ router
   .post('/especialidades', _especialidadesController.createEspecialidad)
   .put('/medicamento', _especialidadesController.updateEspecialidad)
   .delete('/medicamento', _especialidadesController.deleteEspecialidad);
+
+//CRUD ENTRADA_POSOLOGÍA
+router
+  .get('/entradaposologia', _entradaposologiaController.getEntradasPosologias)
+  .get('/entradaposologia', _entradaposologiaController.getEntradaPosologia)
+  .post('/entradaposologia', _entradaposologiaController.createEntradaPosologia);
+
+//CRUD REMISIÓN
+router
+  .get('/remision', _remisionController.getRemisiones)
+  .get('/remision', _remisionController.getRemision)
+  .post('/remision', _remisionController.createRemision);
 
 module.exports = router;
 
