@@ -1,6 +1,6 @@
 const PostgresService = require('../../services/postgres.service');
 const _pg = new PostgresService();
-const _examenpacienteController = require("../controllers/ExamenPaciente/ExamenPaciente.controller");
+const _examenpacienteController = require("../ExamenPaciente/ExamenPaciente.controller");
 
 
 /**
