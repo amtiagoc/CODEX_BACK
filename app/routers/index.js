@@ -3,6 +3,7 @@ const router = express.Router();
 const _usuariosController = require('../controllers/Usuarios/Usuarios.controller');
 const _entradasController = require("../controllers/Entradas/Entradas.Controller");
 const _examenesController = require("../controllers/Examenes/Examenes.controller");
+const _examenesPacienteController = require("../controllers/ExamenPaciente/ExamenPaciente.controller");
 const _authController = require("../controllers/Usuarios/auth.controller");
 const _medicamentosController = require('../controllers/Medicamentos/Medicamentos.controllers');
 const _especialidadesController = require('../controllers/Especialidades/Especialidades.controller');
@@ -40,6 +41,12 @@ router
   .get('/examenes', _examenesController.getExamenes)
   .get('/examen', _examenesController.getExamen)
   .post('/examenes', _examenesController.createExamen);
+
+//CRUD EXAMEN_PACIENTE
+router
+  .get('/examenes_paciente', _examenesPacienteController.getExamenesPaciente)
+  .get('/examen_paciente', _examenesPacienteController.getExamenPaciente)
+  .post('/examen_paciente', _examenesPacienteController.createExamenPaciente);
 
 router
   //CRUD MEDICAMENTOS
