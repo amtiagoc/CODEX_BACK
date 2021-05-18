@@ -37,9 +37,25 @@ const createUsuario = async (req, res) => {
             ${usuario.id_especialidad}, ${usuario.id_sexo}, ${usuario.id_estadocivil}, ${usuario.id_ciudad}, ${usuario.id_rol})`;
         let result = await _pg.executeSql(sql);
         console.log(result.rows);
-        return res.send({ ok: result.rowCount == 1, message: result == 1 ? "El usuario fue creado" : "Usuario no fue creado", content: estudiante, });
+        if(result.rowCount==1){
+            createHistoria(usuario.cedula_usuario,res);
+        }
+        return res.send({ ok: result.rowCount == 1, message: result.rowCount == 1 ? "El usuario fue creado" : "Usuario no fue creado", content: usuario, });
     } catch (error) {
         return res.send({ ok: false, message: "Error creado el usuario", content: error, });
+    }
+};
+
+//Crear historia clinica
+const createHistoria = async (idpaciente, res) => {
+    try {
+    
+        let sql = `INSERT INTO public.historiaclinica (id_paciente) values('${idpaciente}')`;
+        let result = await _pg.executeSql(sql);
+        console.log(result.rows);
+        return res.send({ ok: result.rowCount == 1, message: result == 1 ? "La historia fue creada" : "La historia no fue creada", content: idpaciente, });
+    } catch (error) {
+        return res.send({ ok: false, message: "Error creado la historia", content: error, });
     }
 };
 

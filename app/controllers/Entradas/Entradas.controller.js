@@ -1,5 +1,6 @@
 const PostgresService = require('../../services/postgres.service');
 const _pg = new PostgresService();
+//const _entradasController = require("../controllers/Entradas/Entradas.Controller");
 
 
 /**
@@ -55,15 +56,41 @@ const getEntrada = async (req, res) => {
     }
 };
 
+const createRemision = async (remision_especialidad,remision_descripcion, res) => {
+    try {
+        //let remision = req.body;
+        let sql = `INSERT INTO public.remision (id_especialidad, descripcion) VALUES('${remision_especialidad}', '${remision_descripcion}')`;
+        let result = await _pg.executeSql(sql);
+        console.log(result)
+        return res.send({
+            ok: result.rowCount == 1,
+            message: result.rowCount == 1 ? "Remisión de la entrada creada" : "La Remisión de la entrada no fue creada",
+            content: remision,
+        });
+
+    } catch (error) {
+        return res.send({
+            ok: false,
+            message: "Ha ocurrido un error creando la Remisión de la entrada",
+            content: error,
+        });
+
+    }
+};
+
 const createEntrada = async (req, res) => {
     var date = new Date();
     let fecha=(date.getDate() + "/" + (date.getMonth() +1) + "/" + date.getFullYear());
     try {
         let entrada = req.body;
         //Editar campos del insert
-        let sql = `INSERT INTO public.entrada (peso, estatura, fecha, motivoconsulta, descripcion) VALUES('${entrada.peso}', '${entrada.estatura}', '${fecha}', '${entrada.motivoconsulta}', '${entrada.descripcion}');`
+        createRemision(entrada.remision_esp,entrada.remision_desc,res)
+        //let sql2 = `select id_remision FROM public.remision order by id_remision desc limit 1`;
+        //let result2 = await _pg.executeSql(sql2);
+        let sql = `INSERT INTO public.entrada (peso, estatura, fecha, motivoconsulta, descripcion,id_historiaclinica) VALUES('${entrada.peso}', '${entrada.estatura}', '${fecha}', '${entrada.motivoconsulta}', '${entrada.descripcion}', '${entrada.id_historia}');`
         let result = await _pg.executeSql(sql);
         console.log(result)
+        
         return res.send({
             ok: result.rowCount == 1,
             message: result.rowCount == 1 ? "Entrada de la historia clinica creada" : "La entrada de la historia clinica no fue creada",
