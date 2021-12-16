@@ -84,8 +84,13 @@ const createEntrada = async (req, res) => {
     try {
         let entrada = req.body;
         //Editar campos del insert
-        createRemision(entrada.remision_esp,entrada.remision_desc,res)
-        //let sql2 = `select id_remision FROM public.remision order by id_remision desc limit 1`;
+        /* try {
+            createRemision(entrada.remision_esp,entrada.remision_desc,res)
+            
+        } catch (error) {
+            console.log(error);
+        } */
+        // let sql2 = `select id_remision FROM public.remision order by id_remision desc limit 1`;
         //let result2 = await _pg.executeSql(sql2);
         let sql = `INSERT INTO public.entrada (peso, estatura, fecha, motivoconsulta, descripcion,id_historiaclinica) VALUES('${entrada.peso}', '${entrada.estatura}', '${fecha}', '${entrada.motivoconsulta}', '${entrada.descripcion}', '${entrada.id_historia}');`
         let result = await _pg.executeSql(sql);
